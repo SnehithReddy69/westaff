@@ -1,0 +1,22 @@
+pipeline{
+       agent any
+       stages{
+                stage ("checkout"){
+	              git checkout
+		     }
+		stage ("build"){
+		     mvn clean package maven,gradle
+		    dotnet build
+		    npm build
+		    }
+		stage ("test"){
+		     mvn test  selenium,junit
+		     }
+		stage ("scan"){
+		     sonarqube
+		     }
+		stage ("artifactory"){
+		    jfrog
+		    }
+
+
